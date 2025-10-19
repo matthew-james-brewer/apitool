@@ -1,0 +1,153 @@
+? struct
+typedef struct {
+ "char*" description;
+ "char*" returns;
+ "char**" argsarray_docs;
+} APItool_Function_docs;
+? description: documentation for an APItool_Function.
+? item description: what the function does
+? item returns: notes specifically on the return value of the function
+? item argsarray_docs: documentation for each argument of the function
+
+? struct
+typedef struct {
+ "char*" funcname;
+ "char*" returntype;
+ "int" argsarray_len;
+ "char**" argsarray_names;
+ "char**" argsarray_types;
+ "``APItool_Function_docs``*" doc;
+} APItool_Function;
+? description: a function token in an APItool AST.
+? item funcname: the name of the function
+? item returntype: the type it returns
+? item argsarray_len: how many arguments the function takes
+? item argsarray_names: the names of all of the arguments of the function
+? item argsarray_types: the types of all the arguments of the function
+? item doc: documentation, if there is any
+
+? struct
+typedef struct {
+ "char*" varname;
+ "char*" type;
+ "char*" doc_description;
+} APItool_Variable;
+? description: a variable in an APItool AST.
+? item varname: the name of the variable
+? item type: the variable's type
+? item doc_description: the documentation for the variable
+
+? enum
+typedef enum {
+ APItool_TYPEDEF,
+ APItool_IMMEDIATE,
+ APItool_TYPEDEF_IMMEDIATE
+} APItool_typedef_status;
+? description: how a struct, union, or enum is declared
+? field APItool_TYPEDEF: just a typedef (example: typedef struct { ... } NAME;)
+? field APItool_IMMEDIATE: just a name (example: struct NAME { ... };)
+? field APItool_TYPEDEF_IMMEDIATE: both a typedef and name (example: typedef struct NAME { ... } NAME;)
+
+? struct
+typedef struct {
+ "char*" description;
+ "char**" typesarray_docs;
+} APItool_Struct_Union_Enum_docs;
+? description: documentation for either an APItool_Struct_Union or an APItool_Enum.
+? item description: its description
+? item typesarray_docs: documentation for either the values (enum) or the fields (struct/union).
+
+? struct
+typedef struct {
+ "char*" sunname;
+ "int" typesarray_len;
+ "char**" typesarray_names;
+ "char**" typesarray_types;
+ "``APItool_typedef_status``" marked;
+ "``APItool_Struct_Union_Enum_docs``*" doc;
+ "bool" isunion;
+} APItool_Struct_Union;
+? description: either a struct or a union in an APItool AST.
+? item sunname: its name
+? item typesarray_len: how many items there are
+? item typesarray_names: the name of each item
+? item typesarray_types: the type of each item
+? item marked: how it's declared
+? item doc: its documentation
+
+? struct
+typedef struct {
+ "char*" enumname;
+ "int" array_len;
+ "char**" array_names;
+ "``APItool_typedef_status``" marked;
+ "``APItool_Struct_Union_Enum_docs``*" doc;
+} APItool_Enum;
+? description: an enum in an APItool AST.
+? item enumname: its name
+? item array_len: how many values it has
+? item array_names: each value
+? item marked: how it's declared
+? item doc: its documentation
+
+? union
+typedef union {
+ "char*" verbatim;
+ "``APItool_Function``*" func;
+ "``APItool_Variable``*" var;
+ "``APItool_Struct_Union``*" sun;
+ "``APItool_Enum``*" enm;
+} APItool_token_value;
+? description: all the different values a token in an APItool AST can have.
+? item verbatim: exact text to be copied into the generated header file.
+? item func: a function
+? item var: a variable
+? item sun: a struct or union
+? item enm: an enum
+
+? enum
+typedef enum {
+ APItool_FUNCTION,
+ APItool_VERBATIM,
+ APItool_VARIABLE,
+ APItool_STRUCT_UNION,
+ APItool_ENUM
+} APItool_token_type;
+? description: see APItool_token_value.
+
+? struct
+typedef struct {
+ "``APItool_token_value``" token;
+ "``APItool_token_type``" tt;
+} APItool_token;
+? description: an APItool token in an AST.
+? item token: the token's value (contains a pointer)
+? item tt: the token's type (enum)
+
+? struct
+typedef struct {
+ "``APItool_token``**" val;
+ "int" numtokens;
+} APItool_AST;
+? description: an APItool AST.
+? item val: all of the stored tokens.
+? item numtokens: how many tokens there are.
+
+? function
+"void" APItool_gen_pair("``APItool_AST``*" src, "char*" headerdest, "char*" htmldest, "char*" progname);
+? description: generate a header (.h) and documentation (.html) file from an APItool AST.
+? arg src: the AST.
+? arg headerdest: the name of the header.
+? arg htmldest: the name of the html file.
+? arg progname: the name of the program.
+
+? function
+"``APItool_AST``*" APItool_parse_file("char*" fname);
+? description: generate an APItool AST from a .h.apitool file.
+? arg fname: the name of the .h.apitool file.
+
+? function
+"void" APItool_freeAST("``APItool_AST``*" a);
+? description: free an APItool AST.
+? arg a: the AST to free.
+

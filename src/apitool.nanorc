@@ -1,0 +1,11 @@
+syntax apitool "\.h\.apitool$"
+
+color blue "(^| )(typedef|struct|union|enum)( |$)"
+color cyan "\{|\}|\(|\)|;"
+color yellow "\"[^\"]+\""
+color beet "``[^\"]+``"
+
+color green "^\?.*$"
+color lime "^\? [^ ]+"
+
+color orange "^\? (function|variable|struct|union|enum)"

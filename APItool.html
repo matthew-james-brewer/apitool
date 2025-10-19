@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+ <title>APItool documentation for APItool</title>
+ <style>.token { border: 2px solid black; } </style>
+</head>
+<body>
+ <h2>APItool documentation for APItool</h2>
+ <div class='token'>
+  <h3>Section 0 (struct): APItool_Function_docs</h3>
+  <p>documentation for an APItool_Function.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>char* description</dt>
+   <dd>what the function does</dd>
+   <dt>char* returns</dt>
+   <dd>notes specifically on the return value of the function</dd>
+   <dt>char** argsarray_docs</dt>
+   <dd>documentation for each argument of the function</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 1 (struct): APItool_Function</h3>
+  <p>a function token in an APItool AST.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>char* funcname</dt>
+   <dd>the name of the function</dd>
+   <dt>char* returntype</dt>
+   <dd>the type it returns</dd>
+   <dt>int argsarray_len</dt>
+   <dd>how many arguments the function takes</dd>
+   <dt>char** argsarray_names</dt>
+   <dd>the names of all of the arguments of the function</dd>
+   <dt>char** argsarray_types</dt>
+   <dd>the types of all the arguments of the function</dd>
+   <dt>[APItool_Function_docs]<u>(Section 0)</u>* doc</dt>
+   <dd>documentation, if there is any</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 2 (struct): APItool_Variable</h3>
+  <p>a variable in an APItool AST.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>char* varname</dt>
+   <dd>the name of the variable</dd>
+   <dt>char* type</dt>
+   <dd>the variable's type</dd>
+   <dt>char* doc_description</dt>
+   <dd>the documentation for the variable</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 3 (enum): APItool_typedef_status</h3>
+  <p>how a struct, union, or enum is declared</p>
+  <b>values:</b>
+  <dl>
+   <dt>APItool_TYPEDEF</dt>
+   <dd>just a typedef (example: typedef struct { ... } NAME;)</dd>
+   <dt>APItool_IMMEDIATE</dt>
+   <dd>just a name (example: struct NAME { ... };)</dd>
+   <dt>APItool_TYPEDEF_IMMEDIATE</dt>
+   <dd>both a typedef and name (example: typedef struct NAME { ... } NAME;)</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 4 (struct): APItool_Struct_Union_Enum_docs</h3>
+  <p>documentation for either an APItool_Struct_Union or an APItool_Enum.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>char* description</dt>
+   <dd>its description</dd>
+   <dt>char** typesarray_docs</dt>
+   <dd>documentation for either the values (enum) or the fields (struct/union).</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 5 (struct): APItool_Struct_Union</h3>
+  <p>either a struct or a union in an APItool AST.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>char* sunname</dt>
+   <dd>its name</dd>
+   <dt>int typesarray_len</dt>
+   <dd>how many items there are</dd>
+   <dt>char** typesarray_names</dt>
+   <dd>the name of each item</dd>
+   <dt>char** typesarray_types</dt>
+   <dd>the type of each item</dd>
+   <dt>[APItool_typedef_status]<u>(Section 3)</u> marked</dt>
+   <dd>how it's declared</dd>
+   <dt>[APItool_Struct_Union_Enum_docs]<u>(Section 4)</u>* doc</dt>
+   <dd>its documentation</dd>
+   <dt>bool isunion</dt>
+   <dd></dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 6 (struct): APItool_Enum</h3>
+  <p>an enum in an APItool AST.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>char* enumname</dt>
+   <dd>its name</dd>
+   <dt>int array_len</dt>
+   <dd>how many values it has</dd>
+   <dt>char** array_names</dt>
+   <dd>each value</dd>
+   <dt>[APItool_typedef_status]<u>(Section 3)</u> marked</dt>
+   <dd>how it's declared</dd>
+   <dt>[APItool_Struct_Union_Enum_docs]<u>(Section 4)</u>* doc</dt>
+   <dd>its documentation</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 7 (union): APItool_token_value</h3>
+  <p>all the different values a token in an APItool AST can have.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>char* verbatim</dt>
+   <dd>exact text to be copied into the generated header file.</dd>
+   <dt>[APItool_Function]<u>(Section 1)</u>* func</dt>
+   <dd>a function</dd>
+   <dt>[APItool_Variable]<u>(Section 2)</u>* var</dt>
+   <dd>a variable</dd>
+   <dt>[APItool_Struct_Union]<u>(Section 5)</u>* sun</dt>
+   <dd>a struct or union</dd>
+   <dt>[APItool_Enum]<u>(Section 6)</u>* enm</dt>
+   <dd>an enum</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 8 (enum): APItool_token_type</h3>
+  <p>see APItool_token_value.</p>
+  <b>values:</b>
+  <dl>
+   <dt>APItool_FUNCTION</dt>
+   <dd></dd>
+   <dt>APItool_VERBATIM</dt>
+   <dd></dd>
+   <dt>APItool_VARIABLE</dt>
+   <dd></dd>
+   <dt>APItool_STRUCT_UNION</dt>
+   <dd></dd>
+   <dt>APItool_ENUM</dt>
+   <dd></dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 9 (struct): APItool_token</h3>
+  <p>an APItool token in an AST.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>[APItool_token_value]<u>(Section 7)</u> token</dt>
+   <dd>the token's value (contains a pointer)</dd>
+   <dt>[APItool_token_type]<u>(Section 8)</u> tt</dt>
+   <dd>the token's type (enum)</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 10 (struct): APItool_AST</h3>
+  <p>an APItool AST.</p>
+  <b>fields:</b>
+  <dl>
+   <dt>[APItool_token]<u>(Section 9)</u>** val</dt>
+   <dd>all of the stored tokens.</dd>
+   <dt>int numtokens</dt>
+   <dd>how many tokens there are.</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 11 (function): APItool_gen_pair</h3>
+  <p>generate a header (.h) and documentation (.html) file from an APItool AST.</p>
+  <p>
+   returns void
+  </p>
+  <b>args:</b>
+  <dl>
+   <dt>[APItool_AST]<u>(Section 10)</u>* src</dt>
+   <dd>the AST.</dd>
+   <dt>char* headerdest</dt>
+   <dd>the name of the header.</dd>
+   <dt>char* htmldest</dt>
+   <dd>the name of the html file.</dd>
+   <dt>char* progname</dt>
+   <dd>the name of the program.</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 12 (function): APItool_parse_file</h3>
+  <p>generate an APItool AST from a .h.apitool file.</p>
+  <p>
+   returns [APItool_AST]<u>(Section 10)</u>*
+  </p>
+  <b>args:</b>
+  <dl>
+   <dt>char* fname</dt>
+   <dd>the name of the .h.apitool file.</dd>
+  </dl>
+ </div>
+ <div class='token'>
+  <h3>Section 13 (function): APItool_freeAST</h3>
+  <p>free an APItool AST.</p>
+  <p>
+   returns void
+  </p>
+  <b>args:</b>
+  <dl>
+   <dt>[APItool_AST]<u>(Section 10)</u>* a</dt>
+   <dd>the AST to free.</dd>
+  </dl>
+ </div>
+</body>
+</html>
