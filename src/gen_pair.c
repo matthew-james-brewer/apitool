@@ -113,10 +113,30 @@ void APItool_gen_pair(APItool_AST* src, char* headerdest, char* htmldest, char* 
   "<html>\n"
   "<head>\n"
   " <title>APItool documentation for %s</title>\n"
-  " <style>.token { border: 2px solid black; } </style>\n"
+  " <style>\n"
+  "  body {\n"
+  "   background: #eeeecc;\n"
+  "  }\n"
+  "  h2 {\n"
+  "   color: #22aacc;\n"
+  "   text-decoration: underline;\n"
+  "  }\n"
+  "  .grid {\n"
+  "   display: grid;\n"
+  "   gap: 2px;\n"
+  "   grid-template-columns: auto auto auto auto;\n"
+  "  }\n"
+  "  .token {\n"
+  "   border: 2px solid #dd0000;\n"
+  "   margin: 2px;\n"
+  "   padding: 2px;\n"
+  "   background: #aaeeaa;\n"
+  "  }\n"
+  " </style>\n"
   "</head>\n"
   "<body>\n"
   " <h2>APItool documentation for %s</h2>\n"
+  " <main class='grid'>\n"
   ,progname,progname
  );
  for(int i = 0; i < src->numtokens; i++) {
@@ -242,6 +262,7 @@ void APItool_gen_pair(APItool_AST* src, char* headerdest, char* htmldest, char* 
   }
  }
  fputs(
+  " </main>\n"
   "</body>\n"
   "</html>\n",
   html

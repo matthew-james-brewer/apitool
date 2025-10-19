@@ -2,10 +2,30 @@
 <html>
 <head>
  <title>APItool documentation for APItool</title>
- <style>.token { border: 2px solid black; } </style>
+ <style>
+  body {
+   background: #eeeecc;
+  }
+  h2 {
+   color: #22aacc;
+   text-decoration: underline;
+  }
+  .grid {
+   display: grid;
+   gap: 2px;
+   grid-template-columns: auto auto auto auto;
+  }
+  .token {
+   border: 2px solid #dd0000;
+   margin: 2px;
+   padding: 2px;
+   background: #aaeeaa;
+  }
+ </style>
 </head>
 <body>
  <h2>APItool documentation for APItool</h2>
+ <main class='grid'>
  <div class='token'>
   <h3>Section 0 (struct): APItool_Function_docs</h3>
   <p>documentation for an APItool_Function.</p>
@@ -211,5 +231,6 @@
    <dd>the AST to free.</dd>
   </dl>
  </div>
+ </main>
 </body>
 </html>
