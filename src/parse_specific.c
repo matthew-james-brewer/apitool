@@ -47,7 +47,7 @@ static APItool_Struct_Union* S_parse_struct_union(bool isunion) {
  snprintf(errmsg, 25, "invalid %s structure", isunion ? "union" : "struct");
  APItool_Struct_Union* returnv = malloc(sizeof(APItool_Struct_Union));
 
- char* namee;
+ char* namee = NULL;
  returnv->isunion = isunion;
  bool typedefed = false;
  if(fpeek(fr) == 't') {
