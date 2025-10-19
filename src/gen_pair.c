@@ -37,6 +37,7 @@ void APItool_gen_pair(APItool_AST* src, char* headerdest, char* htmldest, char* 
     break;
    case APItool_VARIABLE:;
     APItool_Variable* var = ct->token.var;
+    fputs("extern ", header);
     fputs(S_strip_backtick(var->type), header);
     putc(' ', header);
     fputs(var->varname, header);

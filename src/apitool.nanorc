@@ -6,6 +6,8 @@ color yellow "\"[^\"]+\""
 color beet "``[^\"]+``"
 
 color green "^\?.*$"
-color lime "^\? [^ ]+"
+color lime "^\? .+:"
 
 color orange "^\? (function|variable|struct|union|enum)"
+
+color red "^!.*$"
