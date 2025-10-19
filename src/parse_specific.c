@@ -111,7 +111,7 @@ static APItool_Enum* S_parse_enum(void) {
  char* errmsg = "invalid enum structure";
  APItool_Enum* returnv = malloc(sizeof(APItool_Enum));
 
- char* namee;
+ char* namee = NULL;
  bool typedefed = false;
  if(fpeek(fr) == 't') {
   S_nom_nom_nom("typedef ", errmsg);
